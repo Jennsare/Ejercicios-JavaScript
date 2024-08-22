@@ -1,0 +1,87 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Descuentos - Tienda de Coches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #00aaff;
+            border-radius: 10px;
+            background-color: #f0faff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Descuentos</h2>
+        <label for="car">Seleccione el coche:</label>
+        <select id="car">
+            <option value="0">Seleccione un coche</option>
+            <option value="fiesta">Ford Fiesta</option>
+            <option value="focus">Ford Focus</option>
+            <option value="escape">Ford Escape</option>
+        </select>
+
+        <br><label for="price">Ingrese el precio del coche:</label>
+        <input type="number" id="price" placeholder="Precio en USD">
+
+        <button onclick="calculateDiscount()">Calcular Descuento</button>
+
+        <div id="result" class="result" style="display:none;">
+            <h3>Resultado:</h3>
+            <p id="carSelected"></p>
+            <p id="discountApplied"></p>
+            <p id="finalPrice"></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateDiscount() {
+            const car = document.getElementById('car').value;
+            const price = parseFloat(document.getElementById('price').value);
+            let discount = 0;
+            let carName = '';
+
+            if (car === 'fiesta') {
+                discount = 0.05;
+                carName = 'Ford Fiesta';
+            } else if (car === 'focus') {
+                discount = 0.10;
+                carName = 'Ford Focus';
+            } else if (car === 'escape') {
+                discount = 0.20;
+                carName = 'Ford Escape';
+            }
+
+            if (price && car !== '0') {
+                const discountAmount = price * discount;
+                const finalPrice = price - discountAmount;
+
+                document.getElementById('carSelected').textContent = `Coche seleccionado: ${carName}`;
+                document.getElementById('discountApplied').textContent = `Descuento aplicado: ${discount * 100}% (${discountAmount.toFixed(2)} USD)`;
+                document.getElementById('finalPrice').textContent = `Precio final con descuento: ${finalPrice.toFixed(2)} USD`;
+
+                document.getElementById('result').style.display = 'block';
+            } else {
+                alert('Por favor, seleccione un coche y un precio válido.');
+            }
+        }
+    </script>
+</body>
+</html>
